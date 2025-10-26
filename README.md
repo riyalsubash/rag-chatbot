@@ -4,7 +4,7 @@ This repository contains the code for a full-stack RAG (Retrieval-Augmented Gene
 
 A key feature of this project is its use of **free, local embeddings** (using Sentence Transformers), which eliminates API costs for vectorization and enhances privacy.
 
-![Chatbot Interface](screenshot.png) ## Features
+## Features
 
 * **Multi-Format Document Support:** Upload and process `.pdf`, `.xlsx`, `.xls`, `.csv`, and `.txt` files.
 * **High-End AI Model:** Utilizes **Anthropic's AI** for state-of-the-art reasoning and answer generation.
