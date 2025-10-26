@@ -150,3 +150,91 @@
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+            /* Responsive CSS - Add this to the end of your stylesheet */
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .content {
+        flex-direction: column;
+        height: auto; /* Override 70vh */
+        flex-grow: 1;
+        overflow-y: auto; /* Allow content (sidebar + chat) to scroll if needed */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        overflow-y: visible; /* Show all content */
+        flex-shrink: 0; /* Prevent sidebar from shrinking */
+    }
+
+    .chat-area {
+        flex-grow: 1;
+        /* Ensure chat area can grow to fill remaining space */
+        height: 100%; 
+    }
+    
+    .messages {
+        flex-grow: 1; /* Ensure messages div grows */
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+    
+    /* The 'gap: 10px' in .input-group will handle vertical spacing */
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .claude-badge {
+        position: static; /* Remove absolute positioning if it was ever added */
+        margin-top: 10px;
+    }
+
+    .sidebar,
+    .messages,
+    .input-area {
+        padding: 15px;
+    }
+    
+    .upload-section {
+        padding: 15px;
+    }
+
+    .message {
+        max-width: 95%;
+        font-size: 0.9rem;
+    }
+}
