@@ -67,7 +67,7 @@
                 const messagesDiv = document.getElementById('messages');
                 const loadingDiv = document.createElement('div');
                 loadingDiv.className = 'message bot-message';
-                loadingDiv.innerHTML = '<span class="loading"></span> Claude is thinking...';
+                loadingDiv.innerHTML = '<span class="loading"></span> I\'m thinking...';
                 loadingDiv.id = 'loading-message';
                 messagesDiv.appendChild(loadingDiv);
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
