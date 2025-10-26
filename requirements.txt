@@ -1,0 +1,12 @@
+flask>=2.2
+python-dotenv
+langchain>=0.0.300
+openai>=1.0.0
+faiss-cpu
+tqdm
+pandas
+python-magic
+python-multipart
+PyPDF2
+xlrd
+pdfplumber
