@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>RAG Chatbot - Claude AI</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🤖 RAG Chatbot</h1>
+                <p>Powered by Claude AI</p>
+                <span class="claude-badge">🧠 Claude 3.5 Sonnet</span>
+            </div>
+            <div class="content">
+                <div class="sidebar">
+                    <div class="upload-section">
+                        <h3>📁 Upload Documents</h3>
+                        <input type="file" id="fileInput" multiple 
+                               accept=".pdf,.xlsx,.xls,.csv,.txt">
+                        <button onclick="uploadFiles()" id="uploadBtn">Upload & Process</button>
+                        <div id="uploadStatus"></div>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+                    <div class="upload-section">
+                        <h3>ℹ️ Instructions</h3>
+                        <p style="font-size: 13px; line-height: 1.6;">
+                            1. Upload PDF, Excel, CSV, or text files<br>
+                            2. Wait for processing to complete<br>
+                            3. Ask questions about your documents<br>
+                            4. Get AI-powered answers from Claude<br><br>
+                            <strong>Features:</strong><br>
+                            • Free local embeddings (no API costs)<br>
+                            • Context-aware conversations<br>
+                            • Source citations included
+                        </p>
+                    </div>
+                </div>
+                <div class="chat-area">
+                    <div class="messages" id="messages">
+                        <div class="bot-message message">
+                            👋 Hello! I'm Claude. Upload some documents to get started, then ask me anything about them.
+                        </div>
+                    </div>
+                    <div class="input-area">
+                        <div class="input-group">
+                            <input type="text" id="questionInput" 
+                                   placeholder="Ask Claude about your documents..."
+                                   onkeypress="if(event.key==='Enter') askQuestion()">
+                            <button onclick="askQuestion()" id="askBtn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{{url_for('static',filename='script.js')}}"></script>
+    </body>
+    </html>

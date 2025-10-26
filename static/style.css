@@ -1,0 +1,152 @@
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                min-height: 100vh;
+                padding: 20px;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                overflow: hidden;
+            }
+            .header {
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                color: white;
+                padding: 30px;
+                text-align: center;
+            }
+            .header h1 { margin-bottom: 10px; }
+            .header p { opacity: 0.9; }
+            .claude-badge {
+                display: inline-block;
+                background: rgba(255,255,255,0.2);
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 12px;
+                margin-top: 10px;
+            }
+            .content { display: flex; height: 70vh; }
+            .sidebar {
+                width: 350px;
+                background: #f8f9fa;
+                padding: 20px;
+                border-right: 1px solid #dee2e6;
+                overflow-y: auto;
+            }
+            .chat-area {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .messages {
+                flex: 1;
+                padding: 20px;
+                overflow-y: auto;
+                background: #fafafa;
+            }
+            .message {
+                margin-bottom: 15px;
+                padding: 12px 16px;
+                border-radius: 10px;
+                max-width: 80%;
+                animation: fadeIn 0.3s;
+                word-wrap: break-word;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .user-message {
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                color: white;
+                margin-left: auto;
+            }
+            .bot-message {
+                background: white;
+                border: 1px solid #dee2e6;
+                white-space: pre-wrap;
+            }
+            .input-area {
+                padding: 20px;
+                background: white;
+                border-top: 1px solid #dee2e6;
+            }
+            .input-group {
+                display: flex;
+                gap: 10px;
+            }
+            input[type="text"] {
+                flex: 1;
+                padding: 12px;
+                border: 2px solid #dee2e6;
+                border-radius: 8px;
+                font-size: 14px;
+            }
+            input[type="text"]:focus {
+                outline: none;
+                border-color: #8B5CF6;
+            }
+            button {
+                padding: 12px 24px;
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s;
+            }
+            button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139,92,246,0.4); }
+            button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+            .upload-section {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+            .upload-section h3 { margin-bottom: 15px; color: #333; }
+            input[type="file"] {
+                display: block;
+                margin: 10px 0;
+                padding: 10px;
+                width: 100%;
+                border: 2px dashed #8B5CF6;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            .status {
+                padding: 10px;
+                margin-top: 10px;
+                border-radius: 5px;
+                font-size: 13px;
+            }
+            .status.success { background: #d4edda; color: #155724; }
+            .status.error { background: #f8d7da; color: #721c24; }
+            .status.info { background: #e8d4f8; color: #5c1a99; }
+            .file-list {
+                margin-top: 10px;
+                font-size: 13px;
+            }
+            .file-item {
+                padding: 5px 10px;
+                background: #e9ecef;
+                margin: 5px 0;
+                border-radius: 5px;
+            }
+            .loading {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 3px solid #f3f3f3;
+                border-top: 3px solid #8B5CF6;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
