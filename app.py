@@ -6,7 +6,7 @@ import shutil
 # LangChain imports
 from langchain_community.document_loaders import PyPDFLoader, CSVLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_anthropic import ChatAnthropic
+from langchain_community.llms import Ollama
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.chains import ConversationalRetrievalChain
@@ -31,6 +31,8 @@ qa_chain = None
 embeddings_instance = None
 
 ALLOWED_EXTENSIONS = {'pdf', 'xlsx', 'xls', 'csv', 'txt'}
+
+# ---------- Helper Functions ----------
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -125,18 +127,18 @@ def process_documents(file_paths):
     vectorstore.save_local(app.config['VECTOR_DB_PATH'])
     print("Vector store saved")
     
-    # Create conversational chain with Claude
+    # Initialize Ollama LLM (local model)
+    print("Initializing Ollama model (gpt-oss:20b)...")
+    llm = Ollama(
+        model="gpt-oss:20b",
+        temperature=0,
+        num_ctx=4096
+    )
+    
     memory = ConversationBufferMemory(
         memory_key="chat_history",
         return_messages=True,
         output_key='answer'
-    )
-    
-    # Initialize Claude AI
-    llm = ChatAnthropic(
-        model="claude-sonnet-4-20250514",  # Latest Claude model
-        temperature=0,
-        max_tokens=4096
     )
     
     qa_chain = ConversationalRetrievalChain.from_llm(
@@ -146,9 +148,11 @@ def process_documents(file_paths):
         return_source_documents=True,
         verbose=True
     )
-    print("QA chain created with Claude AI")
     
+    print("QA chain created with Ollama (gpt-oss:20b)")
     return len(chunks)
+
+# ---------- Flask Routes ----------
 
 @app.route('/')
 def index():
@@ -216,7 +220,7 @@ def ask_question():
         if not question:
             return jsonify({'success': False, 'error': 'No question provided'})
         
-        # Get answer from Claude
+        # Get answer from Ollama
         result = qa_chain({"question": question})
         answer = result['answer']
         
@@ -238,26 +242,16 @@ def ask_question():
         traceback.print_exc()
         return jsonify({'success': False, 'error': str(e)})
 
+# ---------- Main ----------
+
 if __name__ == '__main__':
-    # Set your Anthropic API key here or via environment 
-    from dotenv import load_dotenv
-    load_dotenv()
-    if 'ANTHROPIC_API_KEY' not in os.environ:
-        print("⚠️  WARNING: ANTHROPIC_API_KEY not set!")
-        print("Please set your API key:")
-        print("  export ANTHROPIC_API_KEY='your-api-key-here'")
-        print("Or uncomment and update the line below in the code\n")
-        # Uncomment and add your key:
-        os.environ['ANTHROPIC_API_KEY'] = os.getenv("CLAUDE_KEY")
-        print("✓ Anthropic API key found")
-    
     print("\n" + "="*50)
-    print("🚀 Starting RAG Chatbot with Claude AI...")
+    print("🚀 Starting Local RAG Chatbot with Ollama")
     print("="*50)
     print(f"Upload folder: {app.config['UPLOAD_FOLDER']}")
     print(f"Vector DB path: {app.config['VECTOR_DB_PATH']}")
-    print(f"Model: Claude 3.5 Sonnet")
-    print(f"Embeddings: HuggingFace (free, local)")
+    print(f"Model: gpt-oss:20b (Ollama, local)")
+    print(f"Embeddings: HuggingFace (sentence-transformers/all-MiniLM-L6-v2)")
     print("="*50 + "\n")
     
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True,port=5001)
